@@ -1,4 +1,0 @@
-To execute the files:
-1. Create a workspace for all the files in this branch.
-2. Download and unzip the file: prefab4.0.pairs.tgz. Make sure you unzip under the same file as above.
-3. Run cv_**.pl files with "training.txt".
