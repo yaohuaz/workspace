@@ -1,0 +1,8 @@
+Process to upload local changes to GitHub Remote server:
+1. Make changes to your local file 
+2. git add/rm <$filename>   --- stage the changes
+3. git commit -m"<your update message>"  --- commit the changes with commit messages
+4. git push  --- push the changes to the server
+5. git status --- check current status of files that are:
+	a. unstaged
+	b. not commited 
