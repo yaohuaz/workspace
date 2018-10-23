@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+
+# This will print "Hello, World"
+print "Hello, world\n";
+Here /usr/bin/perl indicates the langauge to be used in the command line.
+
+
+'''Execute perl STATEMENT in command line'''
+$perl -e 'print "Hello World"\n'
+
+'''Comment: Use "#"'''
+Multi-line Comment:
+=pod
+=cut
+Or:
+=begin +Comment
+=end +Comment
+=cut
+
+'''Whitespaces''': doesnt matter in perl.
+
+Single quote and Double quote:
+Single quote: simple print
+Double quote: interpolate variables and special chars: \n.
+
+'''Multi-line store and print'''
+
+$a = 10;
+$var = <<"EOF";
+This is the syntax for here document and it will continue
+until it encounters a EOF in the first line.
+This is case of double quote so variable value will be
+interpolated. For example value of a = $a
+EOF
+
+print "$var\n";
+
+$var = <<'EOF';
+This is case of single quote so variable value will be
+interpolated. For example value of a = $a
+EOF
+print "$var\n";
+
+Result:
+This is the syntax for here document and it will continue
+until it encounters a EOF in the first line.
+This is case of double quote so variable value will be
+interpolated. For example value of a = 10
+
+This is case of single quote so variable value will be
+interpolated. For example value of a = $a
+
+
+'''Escaping character'''
+backslash"\".
+
+$result = "This is \"number\"";
+print "$result\n";
+print "\$result\n";
+
+Result:
+'''
+This is "number"
+$result
+'''
