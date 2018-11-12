@@ -1,0 +1,32 @@
+Ctr -f : forward screen
+Ctr -b : backward screen
+G : end of file
+x : delete character
+dw : delete word
+dd: delete line
+yy: copy line into buffer
+D: delete to the end of line
+p: paste/put buffer
+u: undo last command
+Ctr -r :redo last undo (linux/vim)
+. :repeat last command
+n : find next occurrence of string
+cw: change word
+
+<ESC>: end input
+i : insert
+a : append
+A: append at the End Of Line
+O : open line
+r : replace character
+R : overwrite
+
+:syntax on #syntax color highlight
+:q #quit
+:q! #quit without save
+:w  #write
+:wq  #write and quit
+:num  #appear line number
+:<num>  #go to line <num>
+/<str>  # search string <str>
+:r <file>  #import file at the cursor
