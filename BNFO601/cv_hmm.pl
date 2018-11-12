@@ -2,7 +2,7 @@ $train_file = shift;
 open (IN,$train_file);
 @train = <IN>;
 
-@d= (0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5);
+@d = (0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5);
 @e = (0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6);
 
 my %H;
@@ -50,3 +50,11 @@ for(my $i=0; $i<scalar(@d); $i++){
     print $H{$d[$i]}{$e[$j]};
   }
 }
+
+for my $keypair(
+        sort {$H{$b->[0]}{$b->[1]} <=> $H{$a->[0]}{$a->[1]} }
+        map { my $intKey=$_; map [$intKey, $_], keys %{$H{$intKey}} } keys %H
+    ) {
+    printf( "{%s} - {%s} => %d\n", $keypair->[0], $keypair->[1], $H{$keypair->[0]}{$keypair->[1]} );
+}
+
