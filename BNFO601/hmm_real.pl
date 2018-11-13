@@ -1,4 +1,4 @@
-use List:Util qw[min max];
+use List::Util qw[min max];
 
 open(IN, shift);
 @data = <IN>;
