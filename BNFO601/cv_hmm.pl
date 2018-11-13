@@ -38,7 +38,7 @@ for(my $i=0;$i<scalar(@train);  $i++) {
 				$sum = $error[$j][$k];
 				$ave = 1 - $sum/scalar(@train);
 				#$H{$d[$j]}{$e[$k]} = $ave;
-				print "\n$delta, $eta, $ave\n";
+				#print "\n$delta, $eta, $ave\n";
 		}
 	}
 }
