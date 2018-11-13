@@ -21,7 +21,7 @@ for(my $i=0;$i<scalar(@train);  $i++) {
 	chomp($unaligned);
 	$aligned = $unaligned;
 	$aligned =~ s/.unaligned//g;
-#	print "$aligned\n";
+	print "$aligned\n";
 	print "Current set: $i\n";
 
 	for (my $j=0;$j<scalar(@d);$j++) #for delta value
@@ -31,14 +31,14 @@ for(my $i=0;$i<scalar(@train);  $i++) {
 			$data=$unaligned; #Let data = unaligned data
 				$delta=$d[$j]; #Let delta=d[j]
 				$eta=$e[$k];
-			 	system("perl hmm.pl $data $delta $eta >| hmm_alignment");
+			 	system("perl hmm2.pl $data $delta $eta >| hmm_alignment");
 
 				$err = `perl alignment_accuracy.pl $aligned hmm_alignment` ;#Get error
 				$error[$j][$k] += $err;
 				$sum = $error[$j][$k];
 				$ave = 1 - $sum/scalar(@train);
 				#$H{$d[$j]}{$e[$k]} = $ave;
-				#print "\n$delta, $eta, $ave\n";
+				print "\n$delta, $eta, $ave\n";
 		}
 	}
 }
