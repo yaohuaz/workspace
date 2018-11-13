@@ -149,9 +149,103 @@ C.字符串
 		print $string."\n";
 		substr($string, 4) = " is a book";
 		print $string."\n";
+	5.大小写转换函数
+		lc，将字符串改为小写
+		uc，将字符串改为大写
+		lcfirst，改变字符串首字母小写
+		ucfirst，改变字符串首字母大写 
+
+		$low = "happy";
+		$up = uc( $low );
+		print $up."\n";
+		$low1 = lc( $up );
+		print $low1."\n";
+		$up_first = ucfirst( $low1 );
+		print $up_first."\n";
+		$low_first = lcfirst( $low1 );
+		print $low_first."\n";
+	output:
+		Happy
+		happy
+		Happy
+		happy
+
+
+
+常用操作符：
+A.算术操作符
+	+(加) -(减) *(乘) /(除) **(乘幂) %(取模) -(单目负)
 	
+    	9+3,  8-7,  3*3,  6/3,  8**2,  11%3,  -4
 
+   	注意：
+	乘幂结果不能超出计算机表示的限制，如10**999999;
 
+	取余的操作数如不是整数，对其求整后进行运算，如10.5%3=1。
+	
+	example: 
+		#!/usr/bin/perl
+		$analyzed_sequences = 200;
+		$new_sequences = 21;
+		$percent =($new_sequences / $analyzed_sequences)*100;
+		print "% of new sequences = $percent%";
+	output:
+		% of new sequences = 10.5%
+	
+B.字串操作符
+	1. 连接操作符 "."
+	"hello"."world"     # 同于 "helloworld"
+	"hello".' '."world"  # 同于 "hello world"
+	'hello world'."\n"  # 同于 "hello world\n"
+	
+	2. 重复操作符 "x"
+	"fred" x 3   # "fredfredfred"
+	5 x 4        # 等于 "5" x 4, "5555"
+	
+	3. 赋值操作符
+	=	Assignment only
+	+=	addition and assign
+	-=	subtraction and assign
+	*=	multiply and assign
+	/=	divide and assign
+	%=	remainder and assign
+	**=	exponentiate and assign
+	
+	4. 自增自减操作符
+	
+	5. 逻辑操作符
+	逻辑或：$a || $b 或 $a or $b
+	逻辑与：$a && $b 或 $a and $b
+	逻辑非：! $a 或 not $a
+	逻辑异或：$a xor $b
+	Comparison	number		string		return value
+	equal		==		eq		$a equal to $b return true
+	not equal	!=		ne		$a not equal to $b return true
+	smaller		<		lt		$a less than $b return true
+	larger		>		gt		$a greater than $b return true
+	less or equal	<=		le		$a not greater than $b return true
+	compare		<=>		cmp		equal:0,$a>$b:1; $a<$b:-1
+	
+	6. 逗号操作符
+	前面的表达式先进行运算，如：$var1 += 1, $var2 = $var1;
+	等价于 $var1 += 1; $var2 = $var1;
+	使用此操作符的唯一理由是提高程序的可读性，将关系密切的两个表达式结合在一起，如：
+	$val = 26;
+	$result = (++$val, $val + 5);       #$result = 32
+	注意：如果此处没有括号则意义不同
+	$val = 26;
+	$result = ++$val, $val + 5;         # $result = 27
+	
+	7. 条件操作符
+	条件?值1:值2，实际上为if-else语句的简写方式，当条件为真时取值1,为假时取值2
+	example:
+		$result=0?14:7;
+		print "$result\n";  
+		$result=$var==0?14:7; 
+		print "$result\n";
+	output:
+		7
+		14
 
 
      
