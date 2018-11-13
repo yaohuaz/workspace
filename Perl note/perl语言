@@ -112,6 +112,47 @@ C.字符串
 	        $char3 = 'L';
 	        $result = index($string, $char3);
 	        print "Result: $result\n"; 
+	output:
+		Result:3
+		Result:6
+		Result:-1
+	2. rindex函数
+		position = rindex (string, substring, position); 
+		与index类似，区别是从右端匹配。<index is still counted from left>
+		$string = "I can learn much form perlcn.com";
+		$loc = index($string,"perlcn");
+		print "$loc\n";
+		$loc = rindex($string,"perlcn");
+		print "$loc\n"; 
+	output:
+		22
+		22
+	3.length函数
+		num=length(string); 
+		返回字符串长度，或者说含有字符的数目。
+		$string=“who are you”;  
+     		$length=length($string); 
+	4.substr函数
+		通过substr来存取子串:
+		$value = substr($string, $offset, $count);
+		$value = substr($string, $offset);
+ 		通过substr修改子串:
+		substr($string, $offset, $count) = $newstring;
+		substr($string, $offset) = $newtail; 
+
+		$string = "This is what you have";
+		$start = substr($string, 5, 2);
+		print $start."\n";
+		$remain = substr($string, 5);
+		print $remain."\n";
+		substr($string, 5, 2) = "wasn't";
+		print $string."\n";
+		substr($string, 4) = " is a book";
+		print $string."\n";
+	
+
+
+
 
      
  
