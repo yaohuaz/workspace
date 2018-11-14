@@ -190,7 +190,7 @@ A.算术操作符
 		$percent =($new_sequences / $analyzed_sequences)*100;
 		print "% of new sequences = $percent%";
 	output:
-		% of new sequences = 10.5%
+?????		% of new sequences = 10.5%
 	
 B.字串操作符
 	1. 连接操作符 "."
@@ -212,12 +212,14 @@ B.字串操作符
 	**=	exponentiate and assign
 	
 	4. 自增自减操作符
-	
+?????
 	5. 逻辑操作符
 	逻辑或：$a || $b 或 $a or $b
 	逻辑与：$a && $b 或 $a and $b
 	逻辑非：! $a 或 not $a
 	逻辑异或：$a xor $b
+	
+	6. 比较操作符
 	Comparison	number		string		return value
 	equal		==		eq		$a equal to $b return true
 	not equal	!=		ne		$a not equal to $b return true
@@ -226,7 +228,7 @@ B.字串操作符
 	less or equal	<=		le		$a not greater than $b return true
 	compare		<=>		cmp		equal:0,$a>$b:1; $a<$b:-1
 	
-	6. 逗号操作符
+	7. 逗号操作符
 	前面的表达式先进行运算，如：$var1 += 1, $var2 = $var1;
 	等价于 $var1 += 1; $var2 = $var1;
 	使用此操作符的唯一理由是提高程序的可读性，将关系密切的两个表达式结合在一起，如：
@@ -236,7 +238,7 @@ B.字串操作符
 	$val = 26;
 	$result = ++$val, $val + 5;         # $result = 27
 	
-	7. 条件操作符
+	8. 条件操作符
 	条件?值1:值2，实际上为if-else语句的简写方式，当条件为真时取值1,为假时取值2
 	example:
 		$result=0?14:7;
@@ -247,6 +249,40 @@ B.字串操作符
 		7
 		14
 
+？？？优先级？结合性？
+?????布尔值(boolean) in perl:
+	
+if statement:
+	$name=‘royal’;
+	if ($name gt 'fred') {
+		print "'$name' comes after 'fred' in sorted order.\n";
+	} else{
+		print "'$name' does not come after 'fred'.\n";
+	}
+    output:
+	'royal' comes after 'fred' in sorted order.
+
+while statement:
+	$count = 0;
+	while ($count < 10){
+		$count += 2;
+    	print“count is now $count\n”;  #打印小于10的偶数
+	}
+    output:
+    	count is now 2
+	count is now 4
+	count is now 6
+	count is now 8
+	count is now 10
+	
+User Input <STDIN>
+	<STDIN>用于用户从键盘输入
+	$line = <STDIN>;
+	if($line eq “\n”){
+	print“That was just a blank line!\n”;
+	}else{
+	print “That line of input was: $line”;
+	}
 
      
  
