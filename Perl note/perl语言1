@@ -1,0 +1,288 @@
+注释comment:
+单行注释： #
+多行注释： =pod  (Plain Old Documentations)
+          codes to comment
+          =cut 
+
+数据类型：
+1. scalar：以$开始，以字母或 _ 开头，接下来可以是字母或数字
+2. array: 数组，列表， 以@开头
+3. hash: 哈希，散列，以%开头
+4. file handle: 文件句柄，通常用大写字母来表明句柄类型
+5. pointer: 指针，变量前加反斜杠，如 $pointerto=\$var13
+**case-sensitive
+
+标量变量
+A. 整型
+    十进制：decimal：$var0 = 12345;
+    八进制：octal： $var1 = 047;
+		               #以0开头, 等于十进制的39
+    二进制：binary：$val3 =0b11111111;
+                   #以0b开头, 等于十进制的255
+    十六进制：hexadecimal：$var2 = 0x1f; 
+                   #以0x开头, 等于十进制的31
+  进制转换：
+  #16 to 10
+  $int = OxDEADBEEF;
+  printf("%d\n, $int);
+  $int = hex("DEADBEEF);
+  printf("%d\n", $int);
+  
+  #10 to 16
+  $int = 3735928559;
+  printf("%X\n", $int);   #大写
+  
+  #8 to 10
+  $int = 033653337357;
+  printf("%d\n", $int);
+  $int = oct("33653337357");
+  printf("%d\n",$int)
+  
+  #10 to 8
+  $int = 3735928559;
+  printf"%o\n", $int);
+  
+  OUTPUT:
+  3735928559
+  3735928559
+  DEADBEEF
+  3735928559
+  3735928559
+  33653337357
+  
+B. 浮点型
+  $val0 = 11.4;
+    	$var1 = -0.3; 
+    	$val2 =.3;
+    	$val3 = 54.1e+02;
+
+    注意：浮点寄存器通常不能精确地存储浮点数，在运算中可能会出现误差。
+
+	#!/usr/local/bin/perl
+  	$value = 9.01e+21 + 0.01 - 9.01e+21;
+  	print ("The first value is ", $value, "\n");
+  	$value = 9.01e+21 - 9.01e+21 + 0.01;
+  	print ("The second value is ", $value, "\n");
+
+  OUTPUT:
+  The first value is 0
+  The second value is 0.01
+  
+C.字符串
+  字符串通常是由可打印的字母﹑数字及标点符号组成，其范围介于ASCII编码的32到126之间。与C语言不同，字符串的
+  末尾并不含有隐含的NULL字符。
+
+  单引号字符串：
+  $str1=‘’;
+  $str2=‘fred_123’;
+  $str3=‘hello, world\n’; # \n不是换行符，而表示字面意思
+
+  双引号字符串：
+  $str1=“fred_123”;
+  $str2=“hello, world\n”; # \n是换行符
+  $str3=“coke\tsprite”; # coke, a tab(一个制表符), sprite  
+
+  双引号支持简单变量替换：
+  $number = 11;
+  $text = "This text contains the number $number.";
+  则$text的内容为："This text contains the number 11."
+
+  数字与字符串之间的转换
+   	  视操作符而定，Perl会自动完成转换。如表达式中使用字符串操作符，则将数字转换成字符串；
+      如表达式中使用数字操作符，所有字符串转换成数字，但是字符串中的非数字部分会被忽略。
+
+  	  “hello, ”.12345 　 #其结果为hello, 12345
+   	  “12”*“3” 　　　　 #其结果为36
+	    “12fred34”*“3” 　  #其结果仍为36
+      “Z”.5*7 　　　　   #等同于“Z”.35, 得到“Z35”
+      
+      字符串常用函数：
+      1. index函数
+	        position = index (string, substring, position) 
+	        返回子串substring在字符串string中的位置，如果不存在则返回-1。参数position是可选项，表示匹配从该位置开始匹配。
+	        $string = 'perlmeme.org';
+	        $char1 = 'l';
+	        $result = index($string, $char1);
+	        print "Result: $result\n";
+
+	        $char2 = 'm';
+	        $result = index($string, $char2, 5);
+	        print "Result: $result\n";
+
+	        $char3 = 'L';
+	        $result = index($string, $char3);
+	        print "Result: $result\n"; 
+	output:
+		Result:3
+		Result:6
+		Result:-1
+	2. rindex函数
+		position = rindex (string, substring, position); 
+		与index类似，区别是从右端匹配。<index is still counted from left>
+		$string = "I can learn much form perlcn.com";
+		$loc = index($string,"perlcn");
+		print "$loc\n";
+		$loc = rindex($string,"perlcn");
+		print "$loc\n"; 
+	output:
+		22
+		22
+	3.length函数
+		num=length(string); 
+		返回字符串长度，或者说含有字符的数目。
+		$string=“who are you”;  
+     		$length=length($string); 
+	4.substr函数
+		通过substr来存取子串:
+		$value = substr($string, $offset, $count);
+		$value = substr($string, $offset);
+ 		通过substr修改子串:
+		substr($string, $offset, $count) = $newstring;
+		substr($string, $offset) = $newtail; 
+
+		$string = "This is what you have";
+		$start = substr($string, 5, 2);
+		print $start."\n";
+		$remain = substr($string, 5);
+		print $remain."\n";
+		substr($string, 5, 2) = "wasn't";
+		print $string."\n";
+		substr($string, 4) = " is a book";
+		print $string."\n";
+	5.大小写转换函数
+		lc，将字符串改为小写
+		uc，将字符串改为大写
+		lcfirst，改变字符串首字母小写
+		ucfirst，改变字符串首字母大写 
+
+		$low = "happy";
+		$up = uc( $low );
+		print $up."\n";
+		$low1 = lc( $up );
+		print $low1."\n";
+		$up_first = ucfirst( $low1 );
+		print $up_first."\n";
+		$low_first = lcfirst( $low1 );
+		print $low_first."\n";
+	output:
+		Happy
+		happy
+		Happy
+		happy
+
+
+
+常用操作符：
+A.算术操作符
+	+(加) -(减) *(乘) /(除) **(乘幂) %(取模) -(单目负)
+	
+    	9+3,  8-7,  3*3,  6/3,  8**2,  11%3,  -4
+
+   	注意：
+	乘幂结果不能超出计算机表示的限制，如10**999999;
+
+	取余的操作数如不是整数，对其求整后进行运算，如10.5%3=1。
+	
+	example: 
+		#!/usr/bin/perl
+		$analyzed_sequences = 200;
+		$new_sequences = 21;
+		$percent =($new_sequences / $analyzed_sequences)*100;
+		print "% of new sequences = $percent%";
+	output:
+?????		% of new sequences = 10.5%
+	
+B.字串操作符
+	1. 连接操作符 "."
+	"hello"."world"     # 同于 "helloworld"
+	"hello".' '."world"  # 同于 "hello world"
+	'hello world'."\n"  # 同于 "hello world\n"
+	
+	2. 重复操作符 "x"
+	"fred" x 3   # "fredfredfred"
+	5 x 4        # 等于 "5" x 4, "5555"
+	
+	3. 赋值操作符
+	=	Assignment only
+	+=	addition and assign
+	-=	subtraction and assign
+	*=	multiply and assign
+	/=	divide and assign
+	%=	remainder and assign
+	**=	exponentiate and assign
+	
+	4. 自增自减操作符
+?????
+	5. 逻辑操作符
+	逻辑或：$a || $b 或 $a or $b
+	逻辑与：$a && $b 或 $a and $b
+	逻辑非：! $a 或 not $a
+	逻辑异或：$a xor $b
+	
+	6. 比较操作符
+	Comparison	number		string		return value
+	equal		==		eq		$a equal to $b return true
+	not equal	!=		ne		$a not equal to $b return true
+	smaller		<		lt		$a less than $b return true
+	larger		>		gt		$a greater than $b return true
+	less or equal	<=		le		$a not greater than $b return true
+	compare		<=>		cmp		equal:0,$a>$b:1; $a<$b:-1
+	
+	7. 逗号操作符
+	前面的表达式先进行运算，如：$var1 += 1, $var2 = $var1;
+	等价于 $var1 += 1; $var2 = $var1;
+	使用此操作符的唯一理由是提高程序的可读性，将关系密切的两个表达式结合在一起，如：
+	$val = 26;
+	$result = (++$val, $val + 5);       #$result = 32
+	注意：如果此处没有括号则意义不同
+	$val = 26;
+	$result = ++$val, $val + 5;         # $result = 27
+	
+	8. 条件操作符
+	条件?值1:值2，实际上为if-else语句的简写方式，当条件为真时取值1,为假时取值2
+	example:
+		$result=0?14:7;
+		print "$result\n";  
+		$result=$var==0?14:7; 
+		print "$result\n";
+	output:
+		7
+		14
+
+？？？优先级？结合性？
+?????布尔值(boolean) in perl:
+	
+if statement:
+	$name=‘royal’;
+	if ($name gt 'fred') {
+		print "'$name' comes after 'fred' in sorted order.\n";
+	} else{
+		print "'$name' does not come after 'fred'.\n";
+	}
+    output:
+	'royal' comes after 'fred' in sorted order.
+
+while statement:
+	$count = 0;
+	while ($count < 10){
+		$count += 2;
+    	print“count is now $count\n”;  #打印小于10的偶数
+	}
+    output:
+    	count is now 2
+	count is now 4
+	count is now 6
+	count is now 8
+	count is now 10
+	
+User Input <STDIN>
+	<STDIN>用于用户从键盘输入
+	$line = <STDIN>;
+	if($line eq “\n”){
+	print“That was just a blank line!\n”;
+	}else{
+	print “That line of input was: $line”;
+	}
+
+     
+ 
