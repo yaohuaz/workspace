@@ -165,9 +165,16 @@ for(my $i=0; $i<=length($seq1); $i++){
 print "\n";
 
 print "Matrix b is: \n";
-
-for(my $i=$x; $i>=0; $i--){
-	for(my $j=$y; $j>=0; $j--){
+print "0  ";
+for(my $i = 0; $i<length($seq2);$i++){
+	$u = substr($seq2, $i, 1);
+	print "$u  ";
+	}
+	print "\n";
+for(my $i=0; $i<length($seq1); $i++){
+	$v = substr($seq1, $i, 1);
+	print "$v  ";
+	for(my $j=0; $j<length($seq2); $j++){
 		print "$b[$i][$j]  ";
 	}
 	print "\n";
