@@ -1,0 +1,51 @@
+列表和数组（arrays and index)
+
+A.列表元素包含在小括号()中，各元素用逗号隔开，可为数字、字符串、变量、表达式、undef值等同类型或不同类型的标量值。
+
+	()
+	(“hello”, ”world”)
+	print (1,2,3,4);   		#输出1234
+	(‘a’, 1, 1.34, “hello, $name”) 	#被替换为$name存放的标量值
+	(1,2,3,)                                  	#最后一个逗号被忽略
+	(1 .. 100)                               	#包含从1到100共100个元素
+	(1.7 .. 5.7)    			#最小值和最大值换为整数
+	(“aa”..“ad”)   			#等于("aa","ab","ac","ad")
+	($m .. $n)    			# 由$m 和$n 的值决定	
+	(1,$i+$j)
+
+B.quoted word (qw)
+qw操作把各元素放置于成对的界定符内，并用空格将其分开，Perl会把所有元素均视为单引号字符串
+	格式：qw 界定符 元素1 元素2……元素n 界定符
+	如：qw/fred barney betty wilma dino/
+            qw/1 $a str baby/  #$a是变量名，还是值?
+
+界定符可以选用任何标点符号，也可以使用成对的符号。
+	如：qw #fred barney betty wilma dino#
+	    	 qw {fred barney betty wilma dino}
+            qw (1 $a str baby)
+            qw [1 $a str baby
+            
+    列表操作：
+    列表为标量值的集合，因此可将其赋值给标量变量的集合
+ 	#! /usr/bin/perl
+	($fred, $barney, $dino) = ("flintstone", "rubble", undef);
+	print "\$fred = $fred\n";
+	print "\$barney = $barney\n";
+	print "\$dino = $dino\n";
+
+	output: 
+    $fred = flintstone
+    $barney = rubble
+    $dino  = 
+    
+  ($fred, $barney, $dino) = qw(flintstone rubble undef);
+	print "\$fred = $fred\n";
+	print "\$barney = $barney\n";
+	print "\$dino = $dino\n";
+
+  output:
+    $fred = flintstone
+    $barney = rubble
+    $dino = undef
+  
+  ('\' is an escaping character that makes the following char becomes just string)
