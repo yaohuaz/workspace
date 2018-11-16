@@ -1,4 +1,4 @@
-use List::Util qw[min max];
+#use List::Util qw[min max];
 
 open(IN, shift); @data = <IN>; close(IN); chomp(@data);
 
@@ -31,8 +31,8 @@ for(my $i = 1; $i<=length($seq1); $i++){
 }
 
 $M[0][0] = 0;
-for(my $i = 1; $i <= length($seq1); $i++){ $M[$i][0] = 0;}
-for(my $j = 1; $j <= length($seq2); $j++){ $M[0][$j] = 0;}
+for(my $i = 1; $i <= length($seq1); $i++){ $M[$i][0] = 0; $f[$i][0] = 0;}
+for(my $j = 1; $j <= length($seq2); $j++){ $M[0][$j] = 0; $f[0][$j] = 0;}
 
 $X[0][0] = 0;
 $X[1][0] = $pgap * $BX * $B[0][0];
@@ -64,10 +64,13 @@ for(my $i = 1; $i <= length($seq1); $i++){
                 $b = $p * $BM * $B[$i-1][$j-1];
 		$M[$i][$j] = $m + $x + $y + $b;
 		
-		$X[$i][$j] = $pgap * ($MX*$M[$i-1][$j] + $XX*$X[$i-1][$j] + $BX*$B[$i-1][$j];
-		$Y[$i][$j] = $pgap * ($MY*$M[$i][$j-1] + $YY*$Y[$i][$j-1] + $BY*$B[$i][$j-1];
+		$X[$i][$j] = $pgap * ($MX*$M[$i-1][$j] + $XX*$X[$i-1][$j] + $BX*$B[$i-1][$j]);
+		$Y[$i][$j] = $pgap * ($MY*$M[$i][$j-1] + $YY*$Y[$i][$j-1] + $BY*$B[$i][$j-1]);
 		
 		$f[$i][$j] = $M[$i][$j] + $X[$i][$j] + $Y[$i][$j];
+
+		print "Forward Values:\n";
+		print "i = $i; j = $j; M = $M[$i][$j]; X = $X[$i][$j]; Y = $Y[$i][$j]\n"; 
 	}
 }
 
@@ -77,11 +80,18 @@ for(my $i = 1; $i <= length($seq1); $i++){
 @Xb = ();
 @Yb = ();
 @Mb = ();
+@b = ();
 
 $x = length($seq1);
 $y = length($seq2);
 
-		
+#Initialization		
+$BM = 1 - $delta - $tau; $BX = $BY = $delta; 
+$MB = 1 - $delta - $tau; $XB = $YB = $delta;
+$MM = 1 - $delta - $tai; $MX = $MY = $delta;
+$XX = $eta; $XM = 1 - $eta - $tau; $XY = 0;
+$YY = $eta; $YM = 1 - $eta - $tau; $YX = 0;
+
 $Bb[$x][$y] = 1; $B[$x][$y-1] = 0; $B[$x-1][$y] = 0;
 for(my $i = $x-1; $i >=0; $i--){
         for(my $j = $y-1; $j>=0;$j--){
@@ -90,8 +100,8 @@ for(my $i = $x-1; $i >=0; $i--){
 }
 
 $Mb[$x][$y] = 0;
-for(my $i = $x-1; $i >= 0; $i--){ $M[$i][$y] = 0;}
-for(my $j = $y-1; $j >= 0; $j--){ $M[$x][$j] = 0;}
+for(my $i = $x-1; $i >= 0; $i--){ $M[$i][$y] = $b[$i][$y] = 0;}
+for(my $j = $y-1; $j >= 0; $j--){ $M[$x][$j] = $b[$x][$j] = 0;}
 
 $Xb[$x][$y] = 0;
 $Xb[$x-1][$y] = $pgap * $BX * $B[$x][$y];
@@ -105,4 +115,58 @@ for(my $j = $y-2; $j >= 0; $j--){ $Y[$x][$j]= $pgap * $YY * $Y[$x][$j+1];}
 
 for(my $i=$x; $i >= 0; $i--){$T[$i][$y] = 'u';}
 for(my $j=$y; $j >= 0; $j--){$T[$x][$j] = 'l';}
+
+$b[$x][$y] = 0;
+
+#Recurrence
+for(my $i = $x-1; $i >= 0; $i--){
+	for(my $j = $y-1; $j >= 0; $j--){
+		$ch1 = substr($seq1, $i, 1);
+		$ch2 = substr($seq2, $j, 1);
+		if($ch1 eq $ch2) { $p = $pm;}
+		else { $p = $pmm;}
+
+		$Mb[$i][$j] = $p * ($MM * $Mb[$i+1][$j+1] + $MX * $Xb[$i+1][$j+1] 
+				+ $MY * $Yb[$i+1][$j+1] + $MB * $Bb [$i+1][$j+1]);
+		$Xb[$i][$j] = $pgap * ($XM * $Mb[$i+1][$j] + $XX * $Xb[$i+1][$j] + $XB * $Bb[$i+1][$j]);  
+		$Yb[$i][$j] = $pgap * ($YM * $Mb[$i][$j+1] + $YY * $Yb[$i][$j+1] + $YB * $Bb[$i][$j+1]);  
+		
+		$b[$i][$j] = $Mb[$i][$j] + $Xb[$i][$j] + $Yb[$i][$j];
+
+		print "Backward Values:\n";
+		print "i = $i; j = $j; Mb = $Mb[$i][$j]; Xb = $Xb[$i][$j]; Yb = $Yb[$i][$j]\n"; 
+	}
+}
+#Posterior probability
+@p = ();
+for(my $i = 1; $i <= length($seq1); $i++){
+	for(my $j =1; $j <= length($seq2); $j++){
+		$p[$i][$j] = $f[$i][$j] * $b[$i-1][$j-1] / $f[$x][$y];
+	}
+}
+
+print "Matrix f is \n";
+for(my $i=1; $<=length($seq1); $i++){
+	for(my $j=1; $j<=length($seq2); $j++){
+		print "$f[$i][$j]\n";
+	}
+}
+#print "\n"
+
+print "Matrix b is \n";
+for(my $i=0; $i<length($seq1); $i++){
+	for(my $j=0; $j<length($seq2); $j++){
+		print "$b[$i][$j]\n";
+	}
+}
+#print "\n"
+
+print "Matrix p is \n";
+for(my $i=1; $<=length($seq1); $i++){
+	for(my $j=1; $j<=length($seq2); $j++){
+		print "$p[$i][$j]\n";
+	}
+}
+print "\n"
+
 
