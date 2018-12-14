@@ -1,23 +1,23 @@
-open(IN, 'dogA.fa.txt');
+open(IN, shift);
 @dogFull = <IN>;
 chomp(@dogFull);
 
-open(IN, 'ratQ.fa.txt');
+open(IN, shift);
 @ratFull = <IN>;
 chomp(@ratFull);
 
-my @dogA = @dogFull[0 .. 5000];
-my @ratA = @ratFull[0 .. 7000];
+#my @dogA = @dogFull[0 .. 5000];
+#my @ratA = @ratFull[0 .. 7000];
 ###Section out dog and rat
 $dog ="";
-for (my $i=0; $i<scalar(@dogA); $i++){
-  $dog = $dog . $dogA[$i];
+for (my $i=0; $i<scalar(@dogFull); $i++){
+  $dog = $dog . $dogFull[$i];
   #print "$dog";
 }
 
 $rat ="";
-for (my $i=0; $i<scalar(@ratA); $i++){
-  $rat = $rat . $ratA[$i];
+for (my $i=0; $i<scalar(@ratFull); $i++){
+  $rat = $rat . $ratFull[$i];
   #print "$rat";
 }
 
