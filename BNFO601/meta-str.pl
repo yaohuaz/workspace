@@ -1,17 +1,20 @@
 
 open(IN, shift);
-@dogFull = <IN>;
-chomp(@dogFull);
+@dogF = <IN>;
+chomp(@dogF);
+$dogFull = join '',@dogF;
 
 open(IN, shift);
-@ratFull = <IN>;
-chomp(@ratFull);
-
+@ratF = <IN>;
+chomp(@ratF);
+$ratFull = join '',@ratF;
+#print "$dogFull\n";
+#exit;
 #my @dogA = @dogFull[1 .. 5000];
 #my @ratA = @ratFull[1 .. 7000];
 ###Section out dog and rat
-$dog ="";
 
+=pod
 for (my $i=1; $i<scalar(@dogFull); $i++){
   $dog = $dog . $dogFull[$i];
   #print "$dog";
@@ -31,7 +34,7 @@ for (my $i=1; $i<scalar(@ratA); $i++){
   }
   #print "$rat";
 }
-=pod
+
 @data = <IN>;
 chomp(@data);
 
@@ -41,12 +44,65 @@ $rat = shift;
 %d;
 %r;
 
-$seed = '111111111111111111111111111';
+$seed = '111111111111';
 $ls = length($seed);
-$ldog = length($dog);
-$lrat = length($rat);
+#$ldog = length($dogFull);
+#$lrat = length($ratFull);
 
 ###Dog hash
+$count = 0;
+for(my $i = 12; $i < (length($dogFull) - $ls + 1); $i++){
+  if(substr($dogFull,$i, 1) ne "\n"){
+  $key = "";
+  for(my $j = 0; $j < $ls; $j++){
+    if(substr($dogFull, $i+$j, 1) ne "\n") {
+    $ch = substr($dogFull, $i+$j, 1);
+    $s = substr($seed, $j, 1);
+      if($ch eq uc $ch && $s eq '1'){
+        $key = $key . $ch;}
+
+    else{
+
+    }
+  }
+  }
+  if ($key eq '' || exists $d{$key}){}
+  else{$d{$key} = $i;#print "$key\n";
+      print "$key   $i\n";
+    $count++;
+      #if($i%10000==){print "$i";exit;}
+}
+}
+}
+
+###Rat Hash
+$count2 = 0;
+for(my $i = 12; $i < (length($ratFull) - $ls + 1); $i++){
+  if(substr($ratFull,$i, 1) ne "\n"){
+  $key2 = "";
+  for(my $j = 0; $j < $ls; $j++){
+    if(substr($ratFull, $i+$j, 1) ne "\n") {
+    $ch2 = substr($ratFull, $i+$j, 1);
+    $s2 = substr($seed, $j, 1);
+      if($ch2 eq uc $ch2 && $s2 eq '1'){
+        $key2 = $key2 . $ch;}
+
+    else{
+
+    }
+  }
+  }
+  if ($key2 eq '' || exists $d{$key2}){}
+  else{$d{$key2} = $i;#print "$key2\n";
+     print "$key   $i\n";
+    $count2++;
+      #if($i%10000==2){print "rat $i";exit;}
+}
+}
+}
+
+
+=pod
 $count = 0;
 for (my $i = 0; $i < ($ldog - $ls + 1); $i++){
   $key = "";
@@ -84,7 +140,7 @@ for (my $i = 0; $i < ($lrat - $ls + 1); $i++){
 }
 #print "rat length: $lrat\n";
 #print "rat key count: $count2\n";
-
+=cut
 ###hit check
 $hit = 0;
 #open(my $line, $line2, '>', 'dog-rat.maf');
