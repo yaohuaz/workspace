@@ -7,6 +7,46 @@ Process to upload local changes to GitHub Remote server:
 	a. unstaged
 	b. not commited 
 
-A hash is like an absolute path: it identifies a specific commit. Another way to identify a commit is to use the equivalent of a relative path. The special label HEAD, which we saw in the previous chapter, always refers to the most recent commit. The label HEAD~1 then refers to the commit before it, while HEAD~2 refers to the commit before that, and so on.
+1. A hash is like an absolute path: it identifies a specific commit. Another way to identify a commit is to use the equivalent of a relative path. The special label HEAD, which we saw in the previous chapter, always refers to the most recent commit. The label HEAD~1 then refers to the commit before it, while HEAD~2 refers to the commit before that, and so on.
 
 Note that the symbol between HEAD and the number is a tilde ~, not a minus sign -, and that there cannot be spaces before or after the tilde.
+
+2. The syntax for staging a single file is git add path/to/file.
+If you make a mistake and accidentally stage a file you shouldn't have, you can unstage the additions with git reset HEAD and try again.
+
+3. UNDO CHANGES TO UNSTAGED FILES
+Suppose you have made changes to a file, then decide you want to undo them. Your text editor may be able to do this, but a more reliable way is to let Git do the work. The command:
+
+git checkout -- filename
+will discard the changes that have not yet been staged. (The double dash -- must be there to separate the git checkout command from the names of the file or files you want to recover.)
+
+Use this command carefully: once you discard changes in this way, they are gone forever.
+
+4. UNSTAGE A FILE
+[git reset]. Use [HEAD] for the most recent one.
+Combine with [git checkout] to undo the changes to staged files.
+
+5. VERSION REVERSE
+[git checkout 2242bd report.txt] would replace the current version of report.txt with the version that was committed on October 16. Notice that this is the same syntax that you used to undo the unstaged changes, except -- has been replaced by a hash.
+
+[git log -3 report.txt] shows you the last three commits involving report.txt.
+
+6.UNDO ALL CHANGES
+One way to do this is to give git reset a directory. For example, git reset HEAD data will unstage any files from the data directory. Even better, if you don't provide any files or directories, it will unstage everything. Even even better, HEAD is the default commit to unstage, so you can simply write git reset to unstage everything.
+
+Similarly git checkout -- data will then restore the files in the data directory to their previous state. You can't leave the file argument completely blank, but recall from Introduction to Shell for Data Science that you can refer to the current directory as .. So git checkout -- . will revert all files in the current directory.
+
+7. BRANCHES
+[git branch] shows all the branches you have under current repository. * for current branch.
+You can also use [git checkout] with the name of a branch to switch to that branch.
+To create a branch then switch to it in one step, you add a [-b] flag, calling [git checkout -b branch-name].
+
+8. DIFFERENCES B/N BRANCHES
+just as [git diff revision-1..revision-2] shows the difference between two versions of a repository, [git diff branch-1..branch-2] shows the difference between two branches.
+
+9. BRANCH MERGE
+[git merge source destination] (without .. between the two branch names). The [source destination] branch will be merged into current branch.
+For conflicts: Git can merge addition and deletion of lines automatically.
+Use [git status] when conflicts appear.
+
+
