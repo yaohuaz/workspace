@@ -1,0 +1,7 @@
+Assignment: <-
+Comment: #
+
+Package installing: install.package()
+data() #list all the available dataset in the loaded packages
+ls() #when no argument, list the datasets, values, and functions the user has defined.
+ls(object) #return a vector of character strings of that object.
