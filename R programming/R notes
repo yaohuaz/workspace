@@ -1,7 +1,92 @@
 Assignment: <-
 Comment: #
 
-Package installing: install.package()
+--Arithmetic operations and functions--
+
+• Most operations in R are similar to Excel and calculators
+• Basic: +(add), -(subtract), *(multiply), /(divide)
+• Exponentiation: ^ or **
+• Remainder or modulo operator: %%
+• Matrix multiplication: %*%
+  a <- matrix(c(1:6),nrow=2)
+  b <- matrix(c(1:9),nrow=3))
+  a %*% b
+• sin(x), cos(x), cosh(x), tan(x), tanh(x), acos(x), acosh(x), asin(x),
+  asinh(x), atan(x), atan(x,y) atanh(x)
+• abs(x), ceiling(x), floor(x)
+• exp(x), log(x, base=exp(1)), log10(x), sqrt(x), trunc(x) (the next
+  integer closer to zero)
+• max(), min() 
+
+
+--Naming conventions--
+ Any roman letters, digits(non-initial position),underline(non-initial position), and ‘.’
+• Avoid using system names: c, q, s, t, C, D, F, I, T,diff, mean, pi, range, rank, tree, var
+• Hold for variables, data and functions
+• Variable names are case sensitive 
+
+search()  #to see the current attached packages
+library()  #list all available libraries
+install.packages("UsingR", lib=“lib_path")
+.libPaths()  # show the lib path directory 
+
 data() #list all the available dataset in the loaded packages
 ls() #when no argument, list the datasets, values, and functions the user has defined.
 ls(object) #return a vector of character strings of that object.
+q() #stopping
+
+R allows naming an object with existed names. 
+conflict()  #check objects with existing names
+rm()  #safely removing the object in your environment without affecting the existing function
+
+apropos("mean")  #list all functions containing string "mean"
+example(mean)  #show an example of function mean
+help.search(".*trans.*")  #help files with name or titlematching ‘.*trans.*’
+
+
+--R working environment--
+
+getwd()  #get workind directory  ~~ pwd in terminal
+setwd("working/directory/path”)   #set working directory
+## save to the current working directory
+save.image()
+## save to a specific file and location
+save.image("C:\\Program Files\\R\\R-2.5.0\\bin\\.Rdata”) 
+If you have saved a workspace image and you start R the next
+time, it will restore the workspace. So all your previously saved
+objects are available again. You can also explicitly load a saved
+workspace, i.e., that could be the workspace image of someone
+else. Go to the `File' menu and select `Load workspace...'. 
+
+--reading data into R--
+Read data from formatted data files, e.g. a file of numbers from a
+single file, a table of numbers separated by space, comma, tab etc,
+with or without header.
+read.table, read.csv, for reading tabular data
+header (=T/F); delimiter (sep =‘;’)
+>iris <- read.table("iris.txt")
+> iris[1:2,]
+ Sepal.Length Sepal.Width Petal.Length Petal.Width
+1 5.1 3.5 1.4 0.2
+2 4.9 3.0 1.4 0.2
+>iris <- read.csv("iris.csv”)
+>iris <- read.table("iris.csv",sep=',',header=T)
+
+readLines, for reading lines of a text file
+fileName <- "sample.txt"
+con <- file(fileName, open="r")
+line <- readLines(con)
+close(con)
+length(line)
+line[1]
+nchar(line[1]) 
+
+--Principles of writing data--
+write.table, for writing tabular data to text files (i.e. CSV) or
+connections
+writeLines, for writing character data line-by-line to a file or
+connection
+dump, for dumping a textual representation of multiple R objects
+dput, for outputting a textual representation of an R object
+save, for saving an arbitrary number of R objects in binary format
+(possibly compressed) to a file. 
