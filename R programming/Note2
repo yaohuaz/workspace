@@ -1,0 +1,17 @@
+R data types:
+
+Homogeneous: 
+1d:atomic vectors
+2d:matrix  
+nd:array
+Hetereogenous: 
+1d:lists  
+2d:Data frame
+
+5 basic atomic types:
+character: "a", "swc”
+numeric (real or decimal): 2, 15.5 (also called double)
+Integer: 2L (the L tells R to store this as aninteger)
+Logical: TRUE, FALSE
+Complex: 1+4i (complex numbers with real and imaginary parts) 
+
