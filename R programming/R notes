@@ -90,3 +90,16 @@ dump, for dumping a textual representation of multiple R objects
 dput, for outputting a textual representation of an R object
 save, for saving an arbitrary number of R objects in binary format
 (possibly compressed) to a file. 
+
+
+Output:
+sink("myFile", append=FALSE, split=FALSE)  #direct an output to a file
+sink()  #return output to a terminal
+The append option controls whether output overwrites or adds to a file.
+The split option determines if output is also sent to the screen as well as the output file.
+Here are some examples of the sink() function.
+# output directed to output.txt in c:\projects directory.
+# output overwrites existing file. no output to terminal.
+sink("myfile.txt", append=TRUE, split=TRUE) 
+
+
