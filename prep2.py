@@ -120,7 +120,7 @@ def prepare(df):
     df.fillna(value=0.0, inplace = True)
 
     return df
-train = pd.read_csv('/Users/yaohuazhao/Downloads/tmdb-box-office-prediction/train.csv')
+train = pd.read_csv('train.csv')
 
 #power_six = train.id[train.budget > 1000][train.revenue < 100]
 
@@ -182,7 +182,7 @@ train.loc[train['id'] == 2696,'budget'] = 10000000
 
 
 
-test = pd.read_csv('/Users/yaohuazhao/Downloads/tmdb-box-office-prediction/test.csv')
+test = pd.read_csv('test.csv')
 
 #Clean Data
 test.loc[test['id'] == 6733,'budget'] = 5000000
@@ -385,7 +385,7 @@ def xgb_model(trn_x, trn_y, val_x, val_y, test, verbose) :
     test_pred = model.predict(xgb.DMatrix(test), ntree_limit=model.best_ntree_limit)
 
     return {'val':val_pred, 'test':test_pred, 'error':record['valid']['rmse'][best_idx], 'importance':[i for k, i in model.get_score().items()]}
-'''
+
 import lightgbm as lgb
 
 def lgb_model(trn_x, trn_y, val_x, val_y, test, verbose) :
@@ -422,7 +422,7 @@ def lgb_model(trn_x, trn_y, val_x, val_y, test, verbose) :
     test_pred = model.predict(test, num_iteration = model.best_iteration)
 
     return {'val':val_pred, 'test':test_pred, 'error':record['valid_0']['rmse'][best_idx], 'importance':model.feature_importance('gain')}
-'''
+
 from catboost import CatBoostRegressor
 
 def cat_model(trn_x, trn_y, val_x, val_y, test, verbose) :
@@ -477,14 +477,14 @@ for i, (trn, val) in enumerate(fold) :
     #"""
 
     #""" lightgbm
-    '''
+    
     start = datetime.now()
     result = lgb_model(trn_x, trn_y, val_x, val_y, test, verbose)
     fold_val_pred.append(result['val']*0.4)
     fold_test_pred.append(result['test']*0.4)
     fold_err.append(result['error'])
     print("lgb model.", "{0:.5f}".format(result['error']), '(' + str(int((datetime.now()-start).seconds/60)) + 'm)')
-    '''
+    
     #"""
 
 
