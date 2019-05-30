@@ -353,7 +353,7 @@ test = all_data.loc[train.shape[0]:,:]
 from sklearn.model_selection import KFold
 
 random_seed = 2019
-k = 8 
+k = 15 
 fold = list(KFold(k, shuffle = True, random_state = random_seed).split(train))
 np.random.seed(random_seed)
 
