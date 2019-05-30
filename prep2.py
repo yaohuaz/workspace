@@ -353,7 +353,7 @@ test = all_data.loc[train.shape[0]:,:]
 from sklearn.model_selection import KFold
 
 random_seed = 2019
-k = 10
+k = 8 
 fold = list(KFold(k, shuffle = True, random_state = random_seed).split(train))
 np.random.seed(random_seed)
 
@@ -513,3 +513,10 @@ for i, (trn, val) in enumerate(fold) :
 
 print("fianl avg   err.", final_err)
 print("fianl blend err.", np.sqrt(np.mean((val_pred - y)**2)))
+
+sub = pd.read_csv('sample_submission.csv')
+df_sub = pd.DataFrame()
+df_sub['id'] = sub['id']
+df_sub['revenue'] = np.expm1(test_pred*3)
+#print(df_sub['revenue'])
+df_sub.to_csv("submission.csv", index=False)
