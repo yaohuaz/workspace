@@ -30,3 +30,6 @@ R : overwrite
 :<num>  #go to line <num>
 /<str>  # search string <str>
 :r <file>  #import file at the cursor
+
+select all hash tags: ctr - v (to select in visual block), perform x to delete. 
+    perform shift + i + (the item you want for the rest) + enter
