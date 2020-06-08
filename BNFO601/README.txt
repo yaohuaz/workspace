@@ -1,1 +1,2 @@
-IM still TRYING
+Bioinformatics Practices
+
